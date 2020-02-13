@@ -1,0 +1,21 @@
+.monSelect{
+    border: 1px solid !important;
+    width: 90% !important;
+}
+#conteneurValiderFiltre{
+    padding-top: 5%;
+}
+#conteneurAgenda{
+    background-color: white !important;
+    padding-top: 1rem !important;
+    padding-bottom: 0rem !important;
+}
+.modal-backdrop{
+    background-color: rgba(31, 31, 31, 0.6) !important;
+}
+.modal-dialog{
+    margin: 5.75rem auto !important;
+}
+.monConteneurAgenda{
+    margin: 1rem;
+}

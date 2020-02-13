@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TypeCours index{% endblock %}
+
+{% block body %}
+    <h1>TypeCours index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Intitule</th>
+                <th>Couleur</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for type_cour in type_cours %}
+            <tr>
+                <td>{{ type_cour.id }}</td>
+                <td>{{ type_cour.intitule }}</td>
+                <td>{{ type_cour.couleur }}</td>
+                <td>
+                    <a href="{{ path('type_cours_show', {'id': type_cour.id}) }}">show</a>
+                    <a href="{{ path('type_cours_edit', {'id': type_cour.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('type_cours_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-12 monConteneurBouttonCreation">
+        <a href="{{ path('creation_cours') }}"><button type="button" class="btn btn-primary">Création d'un nouveau cours</button></a>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Module </th>
+                <th scope="col">Type de Cours </th>
+                <th scope="col">Date </th>
+                <th scope="col">Heure de Début</th>
+                <th scope="col">Heure de Fin </th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set cpt = 0 %}
+            {% for cour in cours %}
+                {% if(cpt%2==0) %}
+                    <tr class="monTr table-secondary">
+                        <td>{{cour.module.intitule}}</td>
+                        <td>{{cour.typeCours.intitule}}</td>
+                        <td>{{cour.date|date('d/m/Y')}}</td>
+                        <td>{{cour.heureDebut|date('H:i')}}</td>
+                        <td>{{cour.heureFin|date('H:i')}}</td>
+                        <td>
+                            <a href="{{ path('detail_cours', {'id': cour.id}) }}">
+                                <button type="button" class="btn btn-primary" >
+                                    Voir plus ...
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr class="monTr">
+                        <td>{{cour.module.intitule}}</td>
+                        <td>{{cour.typeCours.intitule}}</td>
+                        <td>{{cour.date|date('d/m/Y')}}</td>
+                        <td>{{cour.heureDebut|date('H:i')}}</td>
+                        <td>{{cour.heureFin|date('H:i')}}</td>
+                        <td>
+                            <a href="{{ path('detail_cours', {'id': cour.id}) }}">
+                                <button type="button" class="btn btn-primary" >
+                                    Voir plus ...
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endif %}
+                {% set cpt = cpt + 1 %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Home {% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron monConteneur">
+        <h1 class="display-6">Connexion</h1>
+        <hr class="my-4">
+        {{ form_start(form, {'attr': {'class':'was-validated'}}) }}
+            <div class="form-group row">
+                <label for="login" class="col-sm-2 col-form-label">
+                    {{ form_label(form.login) }}
+                </label>
+                <div class="col-sm-8">
+                    {{ form_widget(form.login) }}
+                </div>
+                <small id="emailHelp" class="form-text text-muted">
+                    {{ form_help(form.login) }}
+                </small>
+            </div>
+            <div class="form-group row" >
+                <label for="password" class="col-sm-2 col-form-label">
+                    {{ form_label(form.password) }}
+                </label>
+                <div class="col-sm-8">
+                    {{ form_widget(form.password) }}
+                </div>
+                <small id="emailHelp" class="form-text text-muted">
+                    {{ form_help(form.password) }}
+                </small>
+            </div>
+            {% if(app.session.get('error') is not null and app.session.get('error')=="ERROR_LOGIN") %}
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    La combinaison de Login / Mot de Passe est mauvaise. Veuillez réessayer ...
+                </div>
+            {% endif %}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

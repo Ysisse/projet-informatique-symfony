@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-12 monConteneurBouttonCreation">
+        <a href="{{ path("creation_vacances") }}"><button type="button" class="btn btn-primary">Création de nouvelles vacances</button></a>
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Date début</th>
+            <th scope="col">Date fin</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set cpt = 0 %}
+        {% for vacance in vacances %}
+            {% if(cpt%2==0) %}
+                <tr class="monTr table-secondary">
+                    <td>{{vacance.dateDebut|date('d/m/Y')}}</td>
+                    <td>{{vacance.dateFin|date('d/m/Y')}}</td>
+                    <td>
+                        <a href="{{ path("modifer_vacances", {"id": vacance.id}) }}">
+                            <button type="button" class="btn btn-primary" >Modifier</button>
+                        </a>
+                    </td>
+                    <td>
+                        <form method="post" action="{{ path('supprimer_vacances', {'id': vacance.id}) }}" onsubmit="return confirm('Etes-vous sûr de supprimer ces vacances ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ vacance.id) }}">
+                            <button class="btn btn-primary">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="monTr">
+                    <td>{{vacance.dateDebut|date('d/m/Y')}}</td>
+                    <td>{{vacance.dateFin|date('d/m/Y')}}</td>
+                    <td>
+                        <a href="{{ path("modifer_vacances", {"id": vacance.id}) }}">
+                            <button type="button" class="btn btn-primary" >Modifier</button>
+                        </a>
+                    </td>
+                    <td>
+                        <form method="post" action="{{ path('supprimer_vacances', {'id': vacance.id}) }}" onsubmit="return confirm('Etes-vous sûr de supprimer ces vacances ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ vacance.id) }}">
+                            <button class="btn btn-primary">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endif %}
+            {% set cpt = cpt + 1 %}
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

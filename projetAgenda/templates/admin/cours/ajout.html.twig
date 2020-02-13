@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Administration - Cours {% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/cours.css') }}" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function ()
+        {
+            $('#cours_salle').selectize({
+                create: true,
+                sortField: 'text'
+            });
+            $('#cours_professeurs').selectize({
+                create: true,
+                sortField: 'text'
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron monConteneur">
+        <h1 class="display-6">Administration</h1>
+        <hr class="my-4">
+        <h4 class="display-12">Création d'un Nouveau Cours</h4>
+        <hr class="my-4">
+        {{ include('admin/cours/form.html.twig') }}
+    </div>
+{% endblock %}

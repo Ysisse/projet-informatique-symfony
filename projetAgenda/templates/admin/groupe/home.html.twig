@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-12 monConteneurBouttonCreation">
+        <a href="{{ path("creation_groupe") }}"><button type="button" class="btn btn-primary">Création d'un nouveau groupe</button></a>
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Intitulé</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set cpt = 0 %}
+        {% for groupe in groupes %}
+            {% if(cpt%2==0) %}
+                <tr class="monTr table-secondary">
+                    <td>{{groupe.intitule}}</td>
+                    <td>
+                        <a href="{{ path("modifier_groupe", {"id": groupe.id}) }}">
+                            <button type="button" class="btn btn-primary" >Modifier</button>
+                        </a>
+                    </td>
+                    <td>
+                        <form method="post" action="{{ path('supprimer_groupe', {'id': groupe.id}) }}" onsubmit="return confirm('Etes-vous sûr de supprimer ce groupe ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ groupe.id) }}">
+                            <button class="btn btn-primary">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="monTr">
+                    <td>{{groupe.intitule}}</td>
+                    <td>
+                        <a href="{{ path("modifier_groupe", {"id": groupe.id}) }}">
+                            <button type="button" class="btn btn-primary" >Modifier</button>
+                        </a>
+                    </td>
+                    <td>
+                        <form method="post" action="{{ path('supprimer_groupe', {'id': groupe.id}) }}" onsubmit="return confirm('Etes-vous sûr de supprimer ce groupe ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ groupe.id) }}">
+                            <button class="btn btn-primary">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endif %}
+            {% set cpt = cpt + 1 %}
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

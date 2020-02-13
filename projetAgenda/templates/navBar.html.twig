@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="monNavBar">
+    <a class="navbar-brand" href="{{ path("home") }}">Agenda</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            {% if(app.session.get("pageActuelle") is defined and app.session.get("pageActuelle")=="home") %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path("home") }}">Home<span class="sr-only">(current)</span></a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("home") }}">Home<span class="sr-only">(current)</span></a>
+                </li>
+            {% endif %}
+            {% if(app.session.get('user') is not null) %}
+                {% if(app.session.get("pageActuelle") is defined and app.session.get("pageActuelle")=="admin") %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path("admin") }}">Administration</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("admin") }}">Administration</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        </ul>
+
+        <ul class="navbar-nav justify-content-end">
+            {% if(app.session.get('user') is null) %}
+                {% if(app.session.get("pageActuelle") is defined and app.session.get("pageActuelle")=="login") %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path("login") }}">Connexion</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("login") }}">Connexion</a>
+                    </li>
+                {% endif %}
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("logout") }}">Déconnexion</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

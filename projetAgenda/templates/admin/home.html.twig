@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Administration {% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" type="text/css">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron monConteneur">
+        <h1 class="display-6">Administration</h1>
+        <hr class="my-4">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#cours">Cours</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#module">Module</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#professeur">Professeur</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#groupe">Groupe</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#vacances">Vacances</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div id="cours" class="container tab-pane active monConteneurAdmin"><br>
+                {% include 'admin/cours/home.html.twig' %}
+            </div>
+            <div id="module" class="container tab-pane monConteneurAdmin"><br>
+                {% include 'admin/module/home.html.twig' %}
+            </div>
+            <div id="professeur" class="container tab-pane monConteneurAdmin"><br>
+                {% include 'admin/professeur/home.html.twig' %}
+            </div>
+            <div id="groupe" class="container tab-pane monConteneurAdmin"><br>
+                {% include 'admin/groupe/home.html.twig' %}
+            </div>
+            <div id="vacances" class="container tab-pane monConteneurAdmin"><br>
+                {% include 'admin/vacances/home.html.twig' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

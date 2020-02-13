@@ -1,0 +1,22 @@
+.monConteneurAdmin{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100% !important;
+}
+.monSelect{
+    border: 1px solid !important;
+    width: 90% !important;
+}
+.monInputDate{
+    border: 1px solid !important;
+}
+#conteneurValiderFiltre{
+    padding-top: 5%;
+}
+.monConteneurBouttonCreation{
+    padding-bottom: 1em;
+}
+#monHr {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+}

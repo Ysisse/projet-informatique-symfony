@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Administration - Cours {% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/cours.css') }}" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron monConteneur">
+        <h1 class="display-6">Administration</h1>
+        <hr class="my-4">
+        <h4 class="display-12">Détail d'un Cours</h4>
+        <hr class="my-4">
+        <div class="card bg-secondary mb-3" style="max-width: 100%;">
+            <div class="card-header">{{cours.typeCours.intitule}} {{cours.module.intitule}}</div>
+            <div class="card-body">
+                <p class="card-text">Le {{cours.date|date('d/m/Y')}} de {{cours.heureDebut|date('H:i')}} à {{cours.heureFin|date('H:i')}} en {{cours.salle.intitule}}</p>
+                <p class="card-text">
+                    Groupe(s) :
+                    <ul>
+                        {% for groupe in cours.groupes %}
+                            <li>{{ groupe.intitule }}</li>
+                        {% endfor %}
+                    </ul>
+                </p>
+                <p class="card-text">
+                    Professeur(s) :
+                    <ul>
+                        {% for professeur in cours.professeurs %}
+                            <li>{{ professeur.nom }}</li>
+                        {% endfor %}
+                    </ul>
+                </p>
+                <table class="table" style="max-width: 20%;">
+                    <tr>
+                        <td> <a href="{{ path("modification_cours", {'id': cours.id}) }}"> <button type="button" class="btn btn-primary">Modifier</button></a> </td>
+                        <td>
+                            <form method="post" action="{{ path('supprimer_cours', {'id': cours.id}) }}" onsubmit="return confirm('Etes-vous sûr de supprimer ce cours ?');">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cours.id) }}">
+                                <button class="btn btn-primary">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

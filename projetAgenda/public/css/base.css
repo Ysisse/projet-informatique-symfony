@@ -1,0 +1,24 @@
+#monNavBar{
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.fc-button-primary{
+    background-color: #1a1a1a !important;
+    border-radius: 0 !important;
+    border-color: #1a1a1a !important;
+    text-transform: uppercase !important;
+}
+.monInput{
+    border: 1px solid !important;
+    width: 75% !important;
+}
+.monConteneur {
+    padding-bottom: 1rem !important;
+    padding-top: 2rem !important;
+    margin-bottom: 1rem !important;
+    margin-top: 0 !important;
+}
+#alertConnexion{
+    width: 70%;
+}

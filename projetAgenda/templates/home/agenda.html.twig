@@ -1,0 +1,99 @@
+{% include '@Calendar/calendar.html' %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        var calendarEl = document.getElementById('calendar-holder');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            defaultView: 'timeGridWeek',
+            hiddenDays: [ 0 ],
+            minTime : "07:00:00",
+            maxTime : "21:00:00",
+            editable: true,
+            aspectRatio: 2,
+            contentHeight : 620,
+            nowIndicator : true,
+            allDaySlot : false,
+            header: {
+                left: '',
+                center: 'title',
+                right: 'today, prev, next ',
+            },
+            footer : {
+                center: "",
+                left: "",
+                right: ""
+            },
+            titleFormat :  {
+                year: 'numeric', month: 'long', day: 'numeric'
+            },
+            locale: 'fr',
+            buttonText : {
+                today:    "Aujourd'hui",
+                month:    'Mois',
+                week:     'Semaine',
+                day:      'Jour',
+                list:     'Liste'
+            },
+            plugins: [ 'interaction', 'dayGrid', 'timeGrid' ], // https://fullcalendar.io/docs/plugin-index
+            timeZone: 'fr',
+            slotEventOverlap : false,
+            businessHours: [
+                {
+                    daysOfWeek: [ 1, 2, 3, 4, 5 ],
+                    startTime: '8:00',
+                    endTime: '20:30',
+                },
+                {
+                    daysOfWeek: [ 6 ],
+                    startTime: '8:00',
+                    endTime: '14:00'
+                }
+            ],
+            events : [
+                {% set cpt = 0 %}
+                {% for cour in cours %}
+                    {
+                        title : "{{ cour.typeCours.intitule }} {{ cour.module.intitule }}",
+                        description : '{{ cour.date|date('d/m/Y') }} de {{ cour.heureDebut|date('H:i') }} à {{ cour.heureFin|date('H:i') }}<br>Salle : {{ cour.typeCours.intitule }}<br>Professeur : {{ professeursCours[cpt] }}<br>Groupe(s) : {{ groupesCours[cpt] }}',
+                        start : "{{ cour.date|date('Y-m-d') }}T{{ cour.heureDebut|date('H:i:s') }}",
+                        end : "{{ cour.date|date('Y-m-d') }}T{{ cour.heureFin|date('H:i:s') }}",
+                        textColor : 'black',
+                        {% if(app.session.get('user') is not null) %}
+                            url : "{{ path('detail_cours', {'id': cour.id}) }}",
+                        {% endif %}
+                        backgroundColor : '{{ cour.typeCours.couleur }}',
+                        borderColor : '{{ cour.typeCours.couleur }}',
+                        editable : false
+                    },
+                    {% set cpt = cpt + 1 %}
+                {% endfor %}
+            ],
+            {% if(app.session.get('user') is null) %}
+                eventClick:  function(event, jsEvent, view) {
+                    console.log(jsEvent);
+                    $('#modalTitle').html(event.event.title);
+                    $('#modalBody').html(event.event.extendedProps.description);
+                    $(this).children("a").attr("href",event.event.url);
+                    $('#calendarModal').modal();
+                    if(event.event.url){
+                        window.open(event.url, "_blank");
+                    }
+                },
+            {% endif %}
+        });
+        calendar.render();
+    });
+</script>
+
+<div id="calendarModal" class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="modalTitle" class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div id="modalBody" class="modal-body"></div>
+        </div>
+    </div>
+</div>
